@@ -9,3 +9,4 @@ const DetailedView = (props) => {
 	);
 };
 export default DetailedView;
+ 

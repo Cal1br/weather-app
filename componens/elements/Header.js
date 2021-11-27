@@ -1,12 +1,18 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Button } from 'react-native';
+import AddLocation from '../modals/AddLocation';
 
 const Header = () => {
-  return (
-    <View styles={styles.header}>
-      <Text style={styles.headerTitle}>{props.title}</Text>
-    </View>
-  );
+	const [isAddMode, setIsAddMode] = React.useState('');
+	return (
+		<View styles={styles.header}>
+			<Text style={styles.headerTitle}>{props.title}</Text>
+			<View style={styles.buttonHolder}>
+				<Button title={'+'} onPress={() => setIsAddMode(true)} />
+			</View>
+			<AddLocation isVisible={isAddMode} />
+		</View>
+	);
 };
 
 const styles = StyleSheet.create({
