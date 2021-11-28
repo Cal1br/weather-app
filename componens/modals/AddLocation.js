@@ -3,17 +3,24 @@ import { View, Modal, StyleSheet, Button } from 'react-native';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import config from '../services/config.json';
 const AddLocation = (props) => {
+	const [selectedPlace, setSelectedPlace] = React.useState({});
+
 	return (
 		<Modal visible={props.isVisible} animationType={'slide'}>
 			<View style={styles.modalView}>
 				<View style={styles.inputContainer}>
 					<GooglePlacesAutocomplete
 						styles={autoCompleteBoxStyles}
+						fetchDetails={true}
+						GooglePlacesDetailsQuery={{ fields: 'geometry' }}
 						minLength={3}
+						enablePoweredByContainer={false}
 						placeholder="Search for location"
-						onPress={(data, details = null) => {
-							// 'details' is provided when fetchDetails = true
-							console.log(data, details);
+						onPress={(data, details) => {
+							setSelectedPlace({
+								lat: details.geometry.location.lat,
+								lng: details.geometry.location.lng,
+							});
 						}}
 						query={{
 							key: config.googleKey,
@@ -24,6 +31,13 @@ const AddLocation = (props) => {
 				<View style={styles.buttonHolder}>
 					<View style={styles.buttonWrapper}>
 						<Button onPress={props.onCancel} title={'CANCEL'} color={'red'} />
+					</View>
+					<View style={styles.buttonWrapper}>
+						<Button
+							onPress={() => props.onAdd(selectedPlace)}
+							title={'ADD'}
+							color={'green'}
+						/>
 					</View>
 				</View>
 			</View>
@@ -37,7 +51,7 @@ const styles = StyleSheet.create({
 	modalView: { backgroundColor: '#000000', flexGrow: 1 },
 
 	inputContainer: {
-		height: '80%',
+		height: '85%',
 		flexDirection: 'column',
 		justifyContent: 'center',
 		alignItems: 'center',
@@ -58,6 +72,8 @@ const styles = StyleSheet.create({
 	},
 	buttonWrapper: {
 		width: '45%',
+		paddingLeft: 10,
+		paddingTop: 10,
 	},
 });
 

@@ -5,6 +5,13 @@ import AddLocation from '../modals/AddLocation';
 /* TODO maybe make the button SVG */
 const Header = (props) => {
 	const [isAddMode, setIsAddMode] = React.useState('');
+
+	const locationAddHandler = (locationObject) => {
+		if (locationObject.lat && locationObject.lng) {
+			console.log('obj is not empty');
+		}
+		console.log(locationObject);
+	};
 	return (
 		<View style={styles.headerStyle}>
 			<Text style={styles.headerTitle}>{props.title}</Text>
@@ -15,7 +22,11 @@ const Header = (props) => {
 					<Text style={styles.buttonText}>+</Text>
 				</View>
 			</TouchableOpacity>
-			<AddLocation isVisible={isAddMode} onCancel={() => setIsAddMode(false)} />
+			<AddLocation
+				isVisible={isAddMode}
+				onCancel={() => setIsAddMode(false)}
+				onAdd={locationAddHandler}
+			/>
 		</View>
 	);
 };
