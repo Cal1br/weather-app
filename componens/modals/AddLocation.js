@@ -5,22 +5,27 @@ import config from '../services/config.json';
 const AddLocation = (props) => {
 	return (
 		<Modal visible={props.isVisible} animationType={'slide'}>
-			<View style={styles.inputContainer}>
-				{/* important reminder, style is an object, so double curly braces */}
-				<GooglePlacesAutocomplete
-					placeholder="Search for location"
-					onPress={(data, details = null) => {
-						// 'details' is provided when fetchDetails = true
-						console.log(data, details);
-					}}
-					query={{
-						key: config.googleKey,
-						language: 'en',
-					}}
-				/>
-			</View>
-			<View style={styles.buttonHolder}>
-				<Button onPress={props.onCancel} title={'CANCEL'} color={'red'} />
+			<View style={styles.modalView}>
+				<View style={styles.inputContainer}>
+					<GooglePlacesAutocomplete
+						styles={autoCompleteBoxStyles}
+						minLength={3}
+						placeholder="Search for location"
+						onPress={(data, details = null) => {
+							// 'details' is provided when fetchDetails = true
+							console.log(data, details);
+						}}
+						query={{
+							key: config.googleKey,
+							language: 'en',
+						}}
+					/>
+				</View>
+				<View style={styles.buttonHolder}>
+					<View style={styles.buttonWrapper}>
+						<Button onPress={props.onCancel} title={'CANCEL'} color={'red'} />
+					</View>
+				</View>
 			</View>
 		</Modal>
 	);
@@ -29,11 +34,14 @@ const AddLocation = (props) => {
 export default AddLocation;
 
 const styles = StyleSheet.create({
+	modalView: { backgroundColor: '#000000', flexGrow: 1 },
+
 	inputContainer: {
-		flex: 1,
+		height: '80%',
 		flexDirection: 'column',
 		justifyContent: 'center',
 		alignItems: 'center',
+		paddingTop: 15,
 	},
 	input: {
 		borderColor: 'black',
@@ -44,12 +52,18 @@ const styles = StyleSheet.create({
 		marginBottom: 10,
 	},
 	buttonHolder: {
-		width: '60%',
 		flexDirection: 'row',
-		justifyContent: 'space-between',
+		justifyContent: 'center',
 		alignItems: 'center',
 	},
-	button: {
-		width: '40%',
+	buttonWrapper: {
+		width: '45%',
+	},
+});
+
+const autoCompleteBoxStyles = StyleSheet.create({
+	textInputContainer: {
+		flexGrow: 1,
+		width: '80%',
 	},
 });
