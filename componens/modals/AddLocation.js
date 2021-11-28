@@ -18,6 +18,7 @@ const AddLocation = (props) => {
 						placeholder="Search for location"
 						onPress={(data, details) => {
 							setSelectedPlace({
+								title: data.description,
 								lat: details.geometry.location.lat,
 								lng: details.geometry.location.lng,
 							});

@@ -22,12 +22,29 @@ export const init = () => {
 	});
 };
 
-const insertPlace = (title, lat, lng) => {
+export const insertPlace = (locationObject) => {
 	return new Promise((resolve, reject) => {
 		db.transaction((tx) => {
 			tx.executeSql(
 				'INSERT INTO places(title, lat, lng) VALUES (?, ?, ?);',
-				[title, lat, lng],
+				[locationObject.title, locationObject.lat, locationObject.lng],
+				(_, success) => {
+					resolve(success);
+				},
+				(_, err) => {
+					reject(err);
+				}
+			);
+		});
+	});
+};
+
+export const fetchPlaces = () => {
+	return new Promise((resolve, reject) => {
+		db.transaction((tx) => {
+			tx.executeSql(
+				'SELECT * FROM places;',
+				[],
 				(_, success) => {
 					resolve(success);
 				},

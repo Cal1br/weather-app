@@ -1,14 +1,34 @@
 import React from 'react';
-import { View, StyleSheet, Button, Text, TouchableOpacity } from 'react-native';
+import {
+	View,
+	StyleSheet,
+	Button,
+	Text,
+	TouchableOpacity,
+	ToastAndroid,
+} from 'react-native';
 import AddLocation from '../modals/AddLocation';
+import { insertPlace } from '../services/DatabaseService';
 
 /* TODO maybe make the button SVG */
 const Header = (props) => {
 	const [isAddMode, setIsAddMode] = React.useState('');
 
-	const locationAddHandler = (locationObject) => {
-		if (locationObject.lat && locationObject.lng) {
-			console.log('obj is not empty');
+	const addLocationHandler = (locationObject) => {
+		if (locationObject.title && locationObject.lat && locationObject.lng) {
+			insertPlace(locationObject)
+				.then(() => {
+					ToastAndroid.show('Place added!', ToastAndroid.SHORT);
+				})
+				.catch(() => {
+					ToastAndroid.show(
+						'An error has occured when adding place.',
+						ToastAndroid.SHORT
+					);
+				});
+			setIsAddMode(false);
+		} else {
+			ToastAndroid.show('You have not selected a place!', ToastAndroid.SHORT);
 		}
 		console.log(locationObject);
 	};
@@ -25,7 +45,7 @@ const Header = (props) => {
 			<AddLocation
 				isVisible={isAddMode}
 				onCancel={() => setIsAddMode(false)}
-				onAdd={locationAddHandler}
+				onAdd={addLocationHandler}
 			/>
 		</View>
 	);

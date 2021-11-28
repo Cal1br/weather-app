@@ -1,18 +1,21 @@
 import React from 'react';
 import { StyleSheet, View, FlatList } from 'react-native';
-
+import { fetchPlaces } from '../services/DatabaseService';
 /* weather should be touchable sending user to detailed view */
-const WeatherList = () => {
-	const [weatherList, setWeatherList] = React.useState([]);
+const LocationList = () => {
+	const [locationList, setLocationList] = React.useState([]);
 	React.useEffect(() => {
-		//get weather data from api
+		fetchPlaces().then((dbResult) => {
+			console.log(dbResult.rows._array);
+			setLocationList(dbResult.rows._array);
+		});
 	}, []);
 	/*get date as key*/
 	return (
 		<View style={styles.view}>
 			<FlatList
 				keyExtractor={(item) => item}
-				data={weatherList}
+				data={locationList}
 				renderItem={(itemData) => {
 					return <WeatherItem data={itemData.item} />;
 				}}></FlatList>
@@ -24,4 +27,4 @@ const styles = StyleSheet.create({
 	view: { backgroundColor: '#000000', height: '100%' },
 });
 
-export default WeatherList;
+export default LocationList;
