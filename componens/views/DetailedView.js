@@ -1,12 +1,14 @@
-import { View } from 'react-native';
+import React from 'react';
+import { Text, View } from 'react-native';
 
 const DetailedView = (props) => {
+	const item = props.item;
 	return (
 		<View styles={styles.weatherView}>
-			<Header title={props.locationName} />
-			<View></View>
+			<Text>{item.title}</Text>
+			<Text>{item.lat}</Text>
+			<Text>{item.lng}</Text>
 		</View>
 	);
 };
 export default DetailedView;
- 
