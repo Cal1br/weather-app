@@ -1,4 +1,5 @@
-import { View, Modal } from 'react-native';
+import React from 'react';
+import { View, Modal, StyleSheet, Button } from 'react-native';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import config from '../services/config.json';
 const AddLocation = (props) => {
@@ -17,6 +18,9 @@ const AddLocation = (props) => {
 						language: 'en',
 					}}
 				/>
+			</View>
+			<View style={styles.buttonHolder}>
+				<Button onPress={props.onCancel} title={'CANCEL'} color={'red'} />
 			</View>
 		</Modal>
 	);

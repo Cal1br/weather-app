@@ -1,6 +1,6 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
-import { Header } from 'react-native/Libraries/NewAppScreen';
+import { View, StyleSheet, Text } from 'react-native';
+import Header from '../elements/Header';
 import WeatherList from '../elements/WeatherList';
 import AddLocation from '../modals/AddLocation';
 /* IDEA може да използвам базата за да покажа дали някое
