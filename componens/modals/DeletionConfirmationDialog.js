@@ -11,6 +11,8 @@ const DeletionConfirmationDialog = (props) => {
 
   const deleteHandler = () => {
     const item = props.getItemForDeletion;
+    console.log(props);
+    console.log(item);
     if (item.id) {
       deleteMeALocation(item.id);
       setLocationList(locationList.filter((obj) => obj.id !== item.id));

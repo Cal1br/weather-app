@@ -5,10 +5,10 @@ import DeletionConfirmationDialog from "../modals/DeletionConfirmationDialog";
 import { fetchPlaces } from "../services/DatabaseService";
 import LocationItem from "./LocationItem";
 /* weather should be touchable sending user to detailed view */
-const LocationList = () => {
+const LocationList = ({ navigation }) => {
   const { locationList, setLocationList } = React.useContext(LocationsContext);
   const [isItemDeletionMode, setIsItemDeletionMode] = React.useState(false);
-  const [itemForDeletion, setItemForDeletion] = React.useState();
+  const [itemForDeletion, setItemForDeletion] = React.useState({});
   React.useEffect(() => {
     fetchPlaces().then((dbResult) => {
       setLocationList(dbResult.rows._array);
@@ -18,6 +18,10 @@ const LocationList = () => {
   const deletionHandler = (item) => {
     setIsItemDeletionMode(true);
     setItemForDeletion(item);
+  };
+
+  const itemSelectionHandler = (item) => {
+    navigation.navigate("Detailed View", { item: item });
   };
 
   return (
@@ -36,6 +40,7 @@ const LocationList = () => {
               }
               item={itemObj}
               onDelete={deletionHandler}
+              itemSelectedCallback={itemSelectionHandler}
             />
           );
         })}

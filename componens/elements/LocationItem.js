@@ -5,7 +5,7 @@ const LocationItem = (props) => {
   const item = props.item;
 
   const selectHandler = () => {
-    props.navigation("Detailed View", { item: item });
+    props.itemSelectedCallback(item);
   };
 
   return (
