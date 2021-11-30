@@ -13,7 +13,7 @@ const LocationItem = (props) => {
       activeOpacity={0.8}
       onPress={selectHandler}
       onLongPress={() => {
-        props.onLongPress();
+        props.onDelete(item);
       }}
     >
       <View style={styles.listWrapper}>

@@ -1,21 +1,41 @@
 import React from "react";
 import { View, Modal, StyleSheet, Button, Text } from "react-native";
+import { LocationsContext } from "../contexts/LocationsContext";
+import {
+  deleteMeALocation,
+  findMeALocation,
+} from "../services/DatabaseService";
 
 const DeletionConfirmationDialog = (props) => {
-  console.log("IUN");
-  const [selectedPlace, setSelectedPlace] = React.useState({});
+  const { locationList, setLocationList } = React.useContext(LocationsContext);
 
-  const deleteHandler = () => {};
+  const deleteHandler = () => {
+    const item = props.getItemForDeletion;
+    if (item.id) {
+      deleteMeALocation(item.id);
+      setLocationList(locationList.filter((obj) => obj.id !== item.id));
+    } else {
+      findMeALocation(item.lat, item.lng).then((value) => {
+        console.log(value);
+        deleteMeALocation(value.id);
+        setLocationList(locationList.filter((obj) => obj.id !== value.id));
+      });
+    }
+
+    props.handleCancel();
+  };
 
   return (
     <Modal visible={props.isVisible} animationType={"slide"}>
       <View style={styles.modalWrapper}>
-        <Text>Are you sure you want to delete this item?</Text>
-        <View>
-          <View>
-            <Button title={"No"} color="red" onPress={props.handleClose} />
+        <Text style={styles.header}>
+          Are you sure you want to delete this item?
+        </Text>
+        <View style={styles.buttonHolder}>
+          <View style={styles.buttonWrapper}>
+            <Button title={"No"} color="red" onPress={props.handleCancel} />
           </View>
-          <View>
+          <View style={styles.buttonWrapper}>
             <Button title={"Yes"} color="green" onPress={deleteHandler} />
           </View>
         </View>
@@ -31,6 +51,22 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: "#000000",
-    height: "35%",
+    height: "100%",
+  },
+  buttonHolder: {
+    width: "100%",
+    flexDirection: "row",
+    justifyContent: "space-evenly",
+  },
+  buttonWrapper: {
+    width: 100,
+  },
+  header: {
+    color: "white",
+    fontSize: 26,
+    padding: 20,
+    paddingBottom: "65%",
+    textAlign: "center",
+    textAlignVertical: "center",
   },
 });

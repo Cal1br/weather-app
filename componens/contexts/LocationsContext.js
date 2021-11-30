@@ -8,7 +8,7 @@ export const LocationsContext = React.createContext({
 });
 
 export const LocationsContextProvider = (props) => {
-  const [locationListState, setLocationListState] = React.useState();
+  const [locationListState, setLocationListState] = React.useState([]);
 
   return (
     <LocationsContext.Provider
