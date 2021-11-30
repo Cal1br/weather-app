@@ -29,8 +29,9 @@ const DeletionConfirmationDialog = (props) => {
     <Modal visible={props.isVisible} animationType={"slide"}>
       <View style={styles.modalWrapper}>
         <Text style={styles.header}>
-          Are you sure you want to delete this item?
+          Are you sure you want to delete this location?
         </Text>
+        <Text style={styles.item}>{props.getItemForDeletion.title}</Text>
         <View style={styles.buttonHolder}>
           <View style={styles.buttonWrapper}>
             <Button title={"No"} color="red" onPress={props.handleCancel} />
@@ -65,8 +66,11 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 26,
     padding: 20,
-    paddingBottom: "65%",
     textAlign: "center",
     textAlignVertical: "center",
+  },
+  item: {
+    color: "white",
+    paddingBottom: "65%",
   },
 });
