@@ -2,14 +2,13 @@ import React from "react";
 import {
   View,
   StyleSheet,
-  Button,
   Text,
   TouchableOpacity,
   ToastAndroid,
 } from "react-native";
 import { LocationsContext } from "../contexts/LocationsContext";
 import AddLocation from "../modals/AddLocation";
-import { insertPlace } from "../services/DatabaseService";
+import { insertPlace } from "../../services/DatabaseService";
 
 /* TODO maybe make the button SVG */
 const Header = (props) => {

@@ -2,7 +2,7 @@ import React from "react";
 import { StyleSheet, View, FlatList, ScrollView } from "react-native";
 import { LocationsContext } from "../contexts/LocationsContext";
 import DeletionConfirmationDialog from "../modals/DeletionConfirmationDialog";
-import { fetchPlaces } from "../services/DatabaseService";
+import { fetchPlaces } from "../../services/DatabaseService";
 import LocationItem from "./LocationItem";
 /* weather should be touchable sending user to detailed view */
 const LocationList = ({ navigation }) => {

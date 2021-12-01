@@ -4,7 +4,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import LocationView from "./componens/views/LocationView";
 import DetailedView from "./componens/views/DetailedView";
-import { init } from "./componens/services/DatabaseService";
+import { init } from "./services/DatabaseService";
 import { LocationsContextProvider } from "./componens/contexts/LocationsContext";
 
 init()

@@ -4,7 +4,7 @@ import { LocationsContext } from "../contexts/LocationsContext";
 import {
   deleteMeALocation,
   findMeALocation,
-} from "../services/DatabaseService";
+} from "../../services/DatabaseService";
 
 const DeletionConfirmationDialog = (props) => {
   const { locationList, setLocationList } = React.useContext(LocationsContext);
